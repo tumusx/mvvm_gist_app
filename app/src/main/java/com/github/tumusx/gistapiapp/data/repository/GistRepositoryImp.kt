@@ -4,16 +4,14 @@ import com.github.tumusx.gistapiapp.data.api.GistsService
 import com.github.tumusx.gistapiapp.data.model.detailGist.GistDetailDTO
 import com.github.tumusx.gistapiapp.data.model.listGist.GistsListDTOItem
 import com.github.tumusx.gistapiapp.domain.repository.GistRepository
-import com.github.tumusx.gistapiapp.utils.ResultAPI
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GistRepositoryImp @Inject constructor(gistsService: GistsService) : GistRepository {
+class GistRepositoryImp @Inject constructor(private val gistsService: GistsService) : GistRepository {
     override suspend fun getListGists(): List<GistsListDTOItem> {
-       return getListGists()
+       return gistsService.getListGist()
     }
 
     override suspend fun getDetailGist(idGist: String): GistDetailDTO {
-        return getDetailGist(idGist)
+        return gistsService.getDetailGist(idGist)
     }
 }

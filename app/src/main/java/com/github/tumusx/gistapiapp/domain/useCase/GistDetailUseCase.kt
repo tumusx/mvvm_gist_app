@@ -7,6 +7,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface GistDetailUseCase {
 
-    fun getDetailGist(idGist: String) : Flow<ResultAPI<GistDetailVO>>
+    fun getDetailGist(idGist: String) : Flow<ResultAPI<GistDetailDTO>>
 
 }
