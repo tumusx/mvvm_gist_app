@@ -17,6 +17,7 @@ class GistListAdapter(private val getId: (String)-> Unit) : RecyclerView.Adapter
         fun configUIList(gistsItem: GistsListDTOItem) {
             Glide.with(binding.imgAvatarUserGist).load(gistsItem.owner.avatar_url).into(binding.imgAvatarUserGist)
             binding.txtNameUserGist.text  = gistsItem.owner.login
+            binding.txtFileGist.text = gistsItem.files?.values?.map { it.filename }.toString()
         }
     }
 
@@ -33,7 +34,7 @@ class GistListAdapter(private val getId: (String)-> Unit) : RecyclerView.Adapter
     }
 
     private fun detailGistUser(holder: GistListViewHolder, position: Int){
-        holder.binding.llcontainer.setOnClickListener {
+        holder.binding.btnOpenDetail.setOnClickListener {
             getId.invoke(lastedGist[position].id)
         }
     }

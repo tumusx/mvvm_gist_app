@@ -42,6 +42,7 @@ class GistListFragment : Fragment() {
 
     private fun configAdapter() {
         gistsListAdapter = GistListAdapter{myItemClick->
+            Log.d("ID", myItemClick)
             GistDetailFragment(myItemClick).show(childFragmentManager, ConstUtils.GISTDETAILFRAGMENT)
         }
         binding.rvLastedGist.adapter = gistsListAdapter

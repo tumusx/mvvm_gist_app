@@ -1,11 +1,13 @@
 package com.github.tumusx.gistapiapp.presenter.view.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.compose.viewModel
+import com.bumptech.glide.Glide
+import com.github.tumusx.gistapiapp.data.model.detailGist.DetailGistDTO
 import com.github.tumusx.gistapiapp.data.model.detailGist.GistDetailDTO
 import com.github.tumusx.gistapiapp.databinding.FragmentDetailGistsBinding
 import com.github.tumusx.gistapiapp.presenter.viewModel.GistDetailViewModel
@@ -37,13 +39,19 @@ class GistDetailFragment(private val idUserGist: String?) : BottomSheetDialogFra
 
     private fun configObservable() {
         detailGistViewModel.detailGist.observe(viewLifecycleOwner, this::getDetailGistUser)
+        detailGistViewModel.messageError.observe(viewLifecycleOwner, this::showMessageErrorRequest)
     }
 
-    private fun getDetailGistUser(gistDetail: GistDetailDTO) {
-        binding.txtNameUserGist.text = gistDetail.id
-        binding.txtUpdateAt.text = gistDetail.updatedAt
-        binding.txtCreateAt.text = gistDetail.createdAt
+    private fun showMessageErrorRequest(messageError: String){
+        Snackbar.make(binding.root, messageError, Snackbar.LENGTH_SHORT).show()
+    }
+
+    private fun getDetailGistUser(gistDetail: DetailGistDTO) {
+        binding.txtNameUserGist.text = gistDetail.owner.login
+        binding.txtUpdateAt.text = gistDetail.updated_at
+        binding.txtCreateAt.text = gistDetail.created_at
         binding.txtDescriptionGist.text = gistDetail.description
+        Glide.with(binding.imgAvatar).load(gistDetail.owner.avatar_url).into(binding.imgAvatar)
     }
 
 }
