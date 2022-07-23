@@ -8,7 +8,7 @@ import retrofit2.http.Path
 interface GistsService {
 
     @GET("/gists/public")
-    suspend fun getListGist(): List<GistDetailDTO>
+    suspend fun getListGist(): List<GistsListDTOItem>
 
     @GET("/gists/{gist_id}")
     suspend fun getDetailGist(@Path ("gist_id") idGist: String) : GistDetailDTO
