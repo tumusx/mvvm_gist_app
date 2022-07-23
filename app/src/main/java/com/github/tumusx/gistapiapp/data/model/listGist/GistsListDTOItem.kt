@@ -1,5 +1,6 @@
 package com.github.tumusx.gistapiapp.data.model.listGist
 
+import com.bumptech.glide.signature.ObjectKey
 import com.google.gson.annotations.SerializedName
 
 data class GistsListDTOItem(
@@ -20,7 +21,7 @@ data class GistsListDTOItem(
     val description: String,
 
     @SerializedName ("files")
-    val files: Files,
+    val files: Map<String, Files>?,
 
     @SerializedName ("forks_url")
     val forksUrl: String,

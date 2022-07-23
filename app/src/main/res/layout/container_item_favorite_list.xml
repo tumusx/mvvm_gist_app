@@ -25,14 +25,6 @@
             android:text="Tumusx"
             android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/txtFileGist"
-            style="@style/TextAppearance.AppCompat.Body2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="application/xml"
-            android:textSize="15sp" />
 
         <ImageView
             android:id="@+id/favoriteItem"
@@ -40,25 +32,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:background="@drawable/ic_set_favorite_item_gist" />
-
-        <TextView
-            android:id="@+id/btnOpenDetail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:textAllCaps="false"
-            android:background="@color/green_200"
-            android:padding="5dp"
-            android:text="Open Detail"
-            android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:background="@drawable/ic_baseline_star_rate_24" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="5dp"
             android:layout_marginTop="10dp"
-            android:background="@color/black" />
+            android:background="@color/white" />
 
 
     </LinearLayout>

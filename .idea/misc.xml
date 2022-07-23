@@ -3,11 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/muril/AndroidStudioProjects/GistApiApp/app/src/main/res/drawable/ic_baseline_star_rate_24.xml" value="0.128" />
         <entry key="..\:/Users/muril/AndroidStudioProjects/GistApiApp/app/src/main/res/drawable/ic_set_favorite_item_gist.xml" value="0.276" />
         <entry key="..\:/Users/muril/AndroidStudioProjects/GistApiApp/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/muril/AndroidStudioProjects/GistApiApp/app/src/main/res/layout/container_item_favorite_list.xml" value="0.365625" />
         <entry key="..\:/Users/muril/AndroidStudioProjects/GistApiApp/app/src/main/res/layout/container_item_gist_list.xml" value="0.33" />
         <entry key="..\:/Users/muril/AndroidStudioProjects/GistApiApp/app/src/main/res/layout/fragment_detail_gists.xml" value="0.33" />
-        <entry key="..\:/Users/muril/AndroidStudioProjects/GistApiApp/app/src/main/res/layout/fragment_lasted_gist.xml" value="0.25" />
+        <entry key="..\:/Users/muril/AndroidStudioProjects/GistApiApp/app/src/main/res/layout/fragment_favorite_item.xml" value="0.365625" />
+        <entry key="..\:/Users/muril/AndroidStudioProjects/GistApiApp/app/src/main/res/layout/fragment_lasted_gist.xml" value="0.33" />
       </map>
     </option>
   </component>

@@ -1,5 +1,6 @@
-package com.github.tumusx.gistapiapp.data.api
+package com.github.tumusx.gistapiapp.data.remote
 
+import com.github.tumusx.gistapiapp.data.model.detailGist.DetailGistDTO
 import com.github.tumusx.gistapiapp.data.model.detailGist.GistDetailDTO
 import com.github.tumusx.gistapiapp.data.model.listGist.GistsListDTOItem
 import retrofit2.http.GET
@@ -11,5 +12,5 @@ interface GistsService {
     suspend fun getListGist(): List<GistsListDTOItem>
 
     @GET("/gists/{gist_id}")
-    suspend fun getDetailGist(@Path ("gist_id") idGist: String) : GistDetailDTO
+    suspend fun getDetailGist(@Path ("gist_id") idGist: String) : DetailGistDTO
 }

@@ -3,6 +3,7 @@ package com.github.tumusx.gistapiapp.presenter.view
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.github.tumusx.gistapiapp.databinding.ActivityMainBinding
+import com.github.tumusx.gistapiapp.presenter.view.fragment.GistFavoriteFragment
 import com.github.tumusx.gistapiapp.presenter.view.fragment.GistListFragment
 import dagger.hilt.android.AndroidEntryPoint
 
