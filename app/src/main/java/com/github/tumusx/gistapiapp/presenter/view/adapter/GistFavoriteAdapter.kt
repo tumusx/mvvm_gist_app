@@ -1,3 +1,4 @@
+/*
 package com.github.tumusx.gistapiapp.presenter.view.adapter
 
 import android.view.LayoutInflater
@@ -47,4 +48,4 @@ class GistFavoriteAdapter(private val removeFavorite: (DetailGistVODB)-> Unit) :
         itemsSave = gists
         diffUtilResultDispatcher.dispatchUpdatesTo(this)
     }
-}
+}*/
