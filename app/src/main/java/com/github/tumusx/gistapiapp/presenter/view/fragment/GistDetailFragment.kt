@@ -1,9 +1,7 @@
 package com.github.tumusx.gistapiapp.presenter.view.fragment
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +9,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.github.tumusx.gistapiapp.data.model.detailGist.DetailGistDTO
 import com.github.tumusx.gistapiapp.databinding.FragmentDetailGistsBinding
+import com.github.tumusx.gistapiapp.presenter.view.OpenFileActivity
 import com.github.tumusx.gistapiapp.presenter.viewModel.GistDetailViewModel
+import com.github.tumusx.gistapiapp.utils.ConstUtils
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
@@ -55,15 +55,15 @@ class GistDetailFragment(private val idUserGist: String?) : BottomSheetDialogFra
         binding.txtCreateAt.text = gistDetail.created_at
         binding.txtDescriptionGist.text = gistDetail.description
         Glide.with(binding.imgAvatar).load(gistDetail.owner.avatar_url).into(binding.imgAvatar)
-        binding.txtDescriptionTypeFile.text = gistDetail.files.mapKeys { it.value.type }.toString()
+        binding.txtDescriptionTypeFile.text = gistDetail.typeFile()
         binding.txtOpenFile.setOnClickListener {
-            val url = gistDetail.files.mapKeys { it.value.raw_url }.toString()
-            Log.d("Ua", url)
-            val i = Intent(Intent.ACTION_VIEW)
-            i.data = Uri.parse(url)
-            requireActivity().startActivity(i)
+            sendUrlForWebView(gistDetail.typeRawFileURL())
         }
     }
 
-
+    private fun sendUrlForWebView(urlFiletoWebView: String){
+        val actionSend = Intent(requireContext(), OpenFileActivity::class.java)
+        actionSend.putExtra(ConstUtils.SEND_URL_WEBVIEW, urlFiletoWebView)
+        requireActivity().startActivity(actionSend)
+    }
 }

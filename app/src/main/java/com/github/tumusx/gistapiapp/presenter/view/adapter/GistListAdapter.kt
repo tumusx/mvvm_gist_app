@@ -17,10 +17,10 @@ class GistListAdapter(private val itemGist: (GistsListDTOItem) -> Unit) :
     class GistListViewHolder(val binding: ContainerItemGistListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun configUIList(gistsItem: GistsListDTOItem) {
-            Glide.with(binding.imgAvatarUserGist).load(gistsItem.owner.avatar_url)
+            Glide.with(binding.imgAvatarUserGist).load(gistsItem.owner?.avatar_url)
                 .into(binding.imgAvatarUserGist)
-            binding.txtNameUserGist.text = gistsItem.owner.login
-            binding.txtFileGist.text = gistsItem.files?.values?.map { it.type }.toString()
+            binding.txtNameUserGist.text = gistsItem.owner?.login ?: "not user"
+            binding.txtFileGist.text = gistsItem.typeFile()
         }
     }
 

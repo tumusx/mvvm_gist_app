@@ -24,7 +24,6 @@ class GistFavoriteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentFavoriteItemBinding.inflate(layoutInflater)
-        Firebase.database.setPersistenceEnabled(true)
         return binding.root
     }
 

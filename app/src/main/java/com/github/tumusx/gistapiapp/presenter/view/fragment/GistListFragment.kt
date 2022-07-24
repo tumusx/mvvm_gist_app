@@ -74,7 +74,7 @@ class GistListFragment : Fragment() {
 
 
     private fun configUpdateListAdapter(gistItems: List<GistsListDTOItem>) {
-        (gistsListAdapter as GistListAdapter).updateGistList(gistItems.distinctBy { it.owner.id })
+        (gistsListAdapter as GistListAdapter).updateGistList(gistItems.distinctBy { it.owner?.id })
     }
 
 }

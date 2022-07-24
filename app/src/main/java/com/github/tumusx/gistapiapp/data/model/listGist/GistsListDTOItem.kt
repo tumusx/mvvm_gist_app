@@ -1,7 +1,8 @@
 package com.github.tumusx.gistapiapp.data.model.listGist
 
-import com.bumptech.glide.signature.ObjectKey
+import android.util.Log
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class GistsListDTOItem(
 
@@ -21,7 +22,7 @@ data class GistsListDTOItem(
     val description: String,
 
     @SerializedName ("files")
-    val files: Map<String, Files>?,
+    val files: Map<String, Files>,
 
     @SerializedName ("forks_url")
     val forksUrl: String,
@@ -42,7 +43,7 @@ data class GistsListDTOItem(
     val nodeId: String,
 
     @SerializedName ("owner")
-    val owner: Owner,
+    val owner: Owner? = null,
 
     @SerializedName ("public")
     val public: Boolean,
@@ -58,4 +59,14 @@ data class GistsListDTOItem(
 
     @SerializedName ("user")
     val user: Any
-)
+): Serializable{
+
+    fun typeFile() : String {
+        var typeFileGistUser: String? = null
+        for (mapFiles in files.entries) {
+            typeFileGistUser = mapFiles.value.type
+        }
+        return typeFileGistUser.toString()
+    }
+
+}

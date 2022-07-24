@@ -1,6 +1,7 @@
 package com.github.tumusx.gistapiapp.data.model.detailGist
 
 import com.github.tumusx.gistapiapp.data.model.listGist.Files
+import java.io.Serializable
 
 data class DetailGistDTO(
     val comments: Int,
@@ -23,4 +24,21 @@ data class DetailGistDTO(
     val updated_at: String,
     val url: String,
     val user: Any
-)
+) : Serializable{
+
+    fun typeRawFileURL() : String {
+        var typeFileGistUser: String? = null
+        for (mapFiles in files.entries) {
+            typeFileGistUser = mapFiles.value.raw_url
+        }
+        return typeFileGistUser.toString()
+    }
+
+    fun typeFile() : String {
+        var typeFileGistUser: String? = null
+        for (mapFiles in files.entries) {
+            typeFileGistUser = mapFiles.value.type
+        }
+        return typeFileGistUser.toString()
+    }
+}

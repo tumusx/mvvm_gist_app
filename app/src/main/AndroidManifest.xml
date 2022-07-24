@@ -28,7 +28,7 @@
         </activity>
 
         <activity
-            android:name=".presenter.view.fragment.GetImageActivity"
+            android:name=".presenter.view.OpenFileActivity"
             android:exported="true" />
     </application>
 

@@ -1,6 +1,8 @@
 package com.github.tumusx.gistapiapp.data.model.detailGist
 
+import com.github.tumusx.gistapiapp.domain.model.detailGist.GistDetailVO
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 //mapeamento para receber o que vem do servico//
 

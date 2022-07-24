@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.tumusx.gistapiapp.data.db.GistVODB
 import com.github.tumusx.gistapiapp.data.model.listGist.GistsListDTOItem
@@ -19,7 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GistListViewModel @Inject constructor(
-    private val listUseCase: GistListUseCaseImpl, application: Application) : AndroidViewModel(application) {
+    private val listUseCase: GistListUseCaseImpl) : ViewModel(){
     val getStats = MutableLiveData<List<GistsListDTOItem>>()
     val messageErrorRequest = MutableLiveData<String>()
     private var databaseFirebase: DatabaseReference
@@ -29,7 +30,7 @@ class GistListViewModel @Inject constructor(
         databaseFirebase = Firebase.database.reference.child("gists")
     }
 
-    private fun configGistList() {
+    fun configGistList() {
         listUseCase.getListGist().onEach { resultAPI ->
             when (resultAPI) {
 
@@ -49,7 +50,7 @@ class GistListViewModel @Inject constructor(
 
     fun favoriteGistItem(gistItem: GistsListDTOItem){
         try {
-            val gistItems = GistVODB(gistItem.owner.login, gistItem.id, gistItem.createdAt)
+            val gistItems = gistItem.owner?.login?.let { GistVODB(it, gistItem.id, gistItem.createdAt) }
             databaseFirebase.child(gistItem.id).setValue(gistItems)
         }catch (exception: Exception){
             exception.printStackTrace()
