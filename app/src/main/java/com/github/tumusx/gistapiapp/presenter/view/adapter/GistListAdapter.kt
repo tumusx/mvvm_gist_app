@@ -12,6 +12,7 @@ import com.github.tumusx.gistapiapp.utils.CommonDiffUtil
 class GistListAdapter(private val itemGist: (GistsListDTOItem) -> Unit) :
     RecyclerView.Adapter<GistListAdapter.GistListViewHolder>() {
     private var lastedGist = emptyList<GistsListDTOItem>()
+    var selectFavoriteItem: Int? = null
 
     class GistListViewHolder(val binding: ContainerItemGistListBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -39,12 +40,14 @@ class GistListAdapter(private val itemGist: (GistsListDTOItem) -> Unit) :
 
     private fun detailGistUser(holder: GistListViewHolder, gistItemDTOItem: GistsListDTOItem) {
         holder.binding.btnOpenDetail.setOnClickListener {
+            selectFavoriteItem = 1
             itemGist.invoke(gistItemDTOItem)
         }
     }
 
     private fun favoriteGist(holder: GistListViewHolder, gistItemDTOItem: GistsListDTOItem) {
         holder.binding.favoriteItem.setOnClickListener {
+            selectFavoriteItem = 2
             itemGist.invoke(gistItemDTOItem)
         }
     }

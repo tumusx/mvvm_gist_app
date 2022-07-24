@@ -1,6 +1,9 @@
 package com.github.tumusx.gistapiapp.presenter.view.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,7 +36,7 @@ class GistDetailFragment(private val idUserGist: String?) : BottomSheetDialogFra
             detailGistViewModel.getDetailGists(idUserGist)
 
         else
-            Snackbar.make(binding.root, "Não é possível encontrar o detalhe deste gist!", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(binding.clContainerItemsDate, "Não é possível encontrar o detalhe deste gist!", Snackbar.LENGTH_SHORT).show()
     }
 
 
@@ -43,7 +46,7 @@ class GistDetailFragment(private val idUserGist: String?) : BottomSheetDialogFra
     }
 
     private fun showMessageErrorRequest(messageError: String){
-        Snackbar.make(binding.root, messageError, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(binding.clContainerItemsDate, messageError, Snackbar.LENGTH_SHORT).show()
     }
 
     private fun getDetailGistUser(gistDetail: DetailGistDTO) {
@@ -52,6 +55,15 @@ class GistDetailFragment(private val idUserGist: String?) : BottomSheetDialogFra
         binding.txtCreateAt.text = gistDetail.created_at
         binding.txtDescriptionGist.text = gistDetail.description
         Glide.with(binding.imgAvatar).load(gistDetail.owner.avatar_url).into(binding.imgAvatar)
+        binding.txtDescriptionTypeFile.text = gistDetail.files.mapKeys { it.value.type }.toString()
+        binding.txtOpenFile.setOnClickListener {
+            val url = gistDetail.files.mapKeys { it.value.raw_url }.toString()
+            Log.d("Ua", url)
+            val i = Intent(Intent.ACTION_VIEW)
+            i.data = Uri.parse(url)
+            requireActivity().startActivity(i)
+        }
     }
+
 
 }
