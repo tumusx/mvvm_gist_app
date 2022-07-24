@@ -1,30 +1,20 @@
 package com.github.tumusx.gistapiapp.presenter.view.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
+import com.github.tumusx.gistapiapp.data.local.entity.GistInfoEntity
+import com.github.tumusx.gistapiapp.data.local.model.DetailGistVODB
 import com.github.tumusx.gistapiapp.data.model.listGist.GistsListDTOItem
 import com.github.tumusx.gistapiapp.databinding.FragmentLastedGistBinding
-import com.github.tumusx.gistapiapp.domain.GistsStateList
 import com.github.tumusx.gistapiapp.presenter.view.adapter.GistListAdapter
 import com.github.tumusx.gistapiapp.presenter.viewModel.GistListViewModel
 import com.github.tumusx.gistapiapp.utils.ConstUtils
-import com.github.tumusx.gistapiapp.utils.ResultAPI
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class GistListFragment : Fragment() {
@@ -41,9 +31,9 @@ class GistListFragment : Fragment() {
     }
 
     private fun configAdapter() {
-        gistsListAdapter = GistListAdapter{myItemClick->
-            Log.d("ID", myItemClick)
-            GistDetailFragment(myItemClick).show(childFragmentManager, ConstUtils.GISTDETAILFRAGMENT)
+        gistsListAdapter = GistListAdapter{gistItemSelect->
+            configSaveItemGist(gistItemSelect)
+            GistDetailFragment(gistItemSelect.id).show(childFragmentManager, ConstUtils.GISTDETAILFRAGMENT)
         }
         binding.rvLastedGist.adapter = gistsListAdapter
     }
@@ -56,4 +46,11 @@ class GistListFragment : Fragment() {
         gistsViewModel.configGistList()
         configAdapter()
     }
+
+    private fun configSaveItemGist(gistFavorite: GistsListDTOItem){
+        val gistList = mutableListOf<DetailGistVODB>()
+        gistList.add(DetailGistVODB(gistFavorite.id, gistFavorite.owner.login, gistFavorite.owner.avatar_url))
+        gistsViewModel.insertGists(GistInfoEntity(gistList))
+    }
+
 }

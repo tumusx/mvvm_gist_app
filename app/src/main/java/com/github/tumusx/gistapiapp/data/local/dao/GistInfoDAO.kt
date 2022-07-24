@@ -7,11 +7,6 @@ import com.github.tumusx.gistapiapp.data.local.entity.GistInfoEntity
 interface GistInfoDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertGistsFavorites(gists: List<GistInfoEntity>)
+    suspend fun insertGistsFavorites(gists: GistInfoEntity)
 
-    @Query("DELETE FROM gistinfoentity WHERE idGist IN(:gist)")
-    suspend fun deleteGists(gist: GistInfoEntity)
-
-    @Query("SELECT * FROM gistinfoentity WHERE idGist LIKE '%' || :gist || '%'")
-    suspend fun getGistsInfo(gist: GistInfoEntity) : List<GistInfoEntity>
 }

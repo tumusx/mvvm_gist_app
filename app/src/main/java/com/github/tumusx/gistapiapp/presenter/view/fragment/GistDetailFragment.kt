@@ -1,20 +1,24 @@
 package com.github.tumusx.gistapiapp.presenter.view.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.room.Room
 import com.bumptech.glide.Glide
+import com.github.tumusx.gistapiapp.R
+import com.github.tumusx.gistapiapp.data.local.db.GistDataBase
+import com.github.tumusx.gistapiapp.data.local.entity.GistInfoEntity
 import com.github.tumusx.gistapiapp.data.model.detailGist.DetailGistDTO
-import com.github.tumusx.gistapiapp.data.model.detailGist.GistDetailDTO
 import com.github.tumusx.gistapiapp.databinding.FragmentDetailGistsBinding
 import com.github.tumusx.gistapiapp.presenter.viewModel.GistDetailViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class GistDetailFragment(private val idUserGist: String?) : BottomSheetDialogFragment() {
@@ -29,6 +33,7 @@ class GistDetailFragment(private val idUserGist: String?) : BottomSheetDialogFra
         return binding.root
     }
 
+
     private fun searchDetailGist() {
         if (idUserGist != null)
             detailGistViewModel.getDetailGists(idUserGist)
@@ -36,6 +41,7 @@ class GistDetailFragment(private val idUserGist: String?) : BottomSheetDialogFra
         else
             Snackbar.make(binding.root, "Não é possível encontrar o detalhe deste gist!", Snackbar.LENGTH_SHORT).show()
     }
+
 
     private fun configObservable() {
         detailGistViewModel.detailGist.observe(viewLifecycleOwner, this::getDetailGistUser)

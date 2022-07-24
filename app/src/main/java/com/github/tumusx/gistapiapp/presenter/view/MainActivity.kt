@@ -15,17 +15,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         configFragments()
+        configFragmentFavorite()
         setContentView(binding.root)
     }
 
     private fun configFragments() {
-        val gistListFragment = GistListFragment()
         supportFragmentManager.beginTransaction()
-            .add(binding.myFragmentTypeInflate.id, gistListFragment).commit()
+            .add(binding.myFragmentTypeInflate.id, GistListFragment()).commit()
     }
-}
 
-enum class FragmentType {
-    LIST_FRAGMENT,
-    FAVORITE_FRAGMENT
+    private fun configFragmentFavorite() {
+        binding.txtFavoriteUser.setOnClickListener {
+                supportFragmentManager.beginTransaction()
+                .replace(binding.myFragmentTypeInflate.id, GistFavoriteFragment()).commit()
+        }
+    }
 }
