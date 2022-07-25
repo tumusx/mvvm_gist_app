@@ -21,4 +21,7 @@ Projeto criado para listar e detalhar os últimos gists através da API https://
 * MVVM como arquitetura do projeto e estruturação de cada camada
 * Observable com liveData para criar objetos observaveis e saberem quando mudou de estado
 
+  * <b> Feito com Clean MVVM<b>
+  
+*PROJETO SEGUIDO PRINCIPIOS DE SOLID sobre segreção de classe / interface, DI e responsabilidade única de uma classe / método;
 Abaixo um breve gif da funcionalidade do APP:
