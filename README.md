@@ -19,5 +19,6 @@ Projeto criado para listar e detalhar os últimos gists através da API https://
 * Foi utilizado alguns fabric ja disponivel de outras classes
 * Use Case para conter a lógica de negócio
 * MVVM como arquitetura do projeto e estruturação de cada camada
+* Observable com liveData para criar objetos observaveis e saberem quando mudou de estado
 
 Abaixo um breve gif da funcionalidade do APP:
