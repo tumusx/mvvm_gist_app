@@ -1,4 +1,4 @@
-package com.github.tumusx.gistapiapp.data.db
+package com.github.tumusx.gistapiapp.data.db.model
 
 import com.google.firebase.database.IgnoreExtraProperties
 

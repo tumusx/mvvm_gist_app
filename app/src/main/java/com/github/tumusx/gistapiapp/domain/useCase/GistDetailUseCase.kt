@@ -1,8 +1,6 @@
 package com.github.tumusx.gistapiapp.domain.useCase
 
 import com.github.tumusx.gistapiapp.data.model.detailGist.DetailGistDTO
-import com.github.tumusx.gistapiapp.data.model.detailGist.GistDetailDTO
-import com.github.tumusx.gistapiapp.domain.model.detailGist.GistDetailVO
 import com.github.tumusx.gistapiapp.utils.ResultAPI
 import kotlinx.coroutines.flow.Flow
 

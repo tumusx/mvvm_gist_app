@@ -1,7 +1,6 @@
 package com.github.tumusx.gistapiapp.domain.repository
 
 import com.github.tumusx.gistapiapp.data.model.detailGist.DetailGistDTO
-import com.github.tumusx.gistapiapp.data.model.detailGist.GistDetailDTO
 import com.github.tumusx.gistapiapp.data.model.listGist.GistsListDTOItem
 
 interface GistRepository {

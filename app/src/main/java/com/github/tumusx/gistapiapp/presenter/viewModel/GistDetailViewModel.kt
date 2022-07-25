@@ -15,16 +15,20 @@ import javax.inject.Inject
 class GistDetailViewModel @Inject constructor(private val gistsDetailUseCase: GistDetailUseCaseImpl) : ViewModel() {
     val detailGist = MutableLiveData<DetailGistDTO>()
     val messageError = MutableLiveData<String>()
+    val isResultLoading = MutableLiveData<Boolean>()
 
     fun getDetailGists(id: String) {
+        isResultLoading.postValue(true)
         gistsDetailUseCase.getDetailGist(id).onEach { resultGetDetails ->
             when (resultGetDetails) {
 
                 is ResultAPI.SuccessRequest -> {
+                    isResultLoading.postValue(false)
                     detailGist.postValue(resultGetDetails.dataResult)
                 }
 
                 is ResultAPI.FailureRequest -> {
+                    isResultLoading.postValue(false)
                     messageError.postValue(resultGetDetails.messageError)
                 }
             }

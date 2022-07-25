@@ -50,7 +50,7 @@
             android:textAllCaps="false"
             android:background="@color/green_200"
             android:padding="5dp"
-            android:text="Open Detail"
+            android:text="Abrir Detalhes"
             android:textColor="@color/black"
             android:textSize="15sp" />
 

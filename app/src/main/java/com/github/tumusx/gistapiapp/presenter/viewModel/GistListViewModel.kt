@@ -1,12 +1,9 @@
 package com.github.tumusx.gistapiapp.presenter.viewModel
 
-import android.app.Application
-import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.tumusx.gistapiapp.data.db.GistVODB
+import com.github.tumusx.gistapiapp.data.db.model.GistVODB
 import com.github.tumusx.gistapiapp.data.model.listGist.GistsListDTOItem
 import com.github.tumusx.gistapiapp.domain.useCase.GistListUseCaseImpl
 import com.github.tumusx.gistapiapp.utils.ResultAPI
@@ -20,39 +17,43 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GistListViewModel @Inject constructor(
-    private val listUseCase: GistListUseCaseImpl) : ViewModel(){
+    private val listUseCase: GistListUseCaseImpl
+) : ViewModel() {
     val getStats = MutableLiveData<List<GistsListDTOItem>>()
     val messageErrorRequest = MutableLiveData<String>()
-    private var databaseFirebase: DatabaseReference
+    val isResultLoading = MutableLiveData<Boolean>()
+    private var databaseFirebase: DatabaseReference = Firebase.database.reference.child("gists")
 
     init {
         configGistList()
-        databaseFirebase = Firebase.database.reference.child("gists")
     }
 
-    fun configGistList() {
+    private fun configGistList() {
+        isResultLoading.postValue(true)
         listUseCase.getListGist().onEach { resultAPI ->
             when (resultAPI) {
 
+
                 is ResultAPI.SuccessRequest -> {
                     getStats.postValue(resultAPI.dataResult)
-                    Log.d("ok", resultAPI.dataResult.toString())
+                    isResultLoading.postValue(false)
                 }
 
                 is ResultAPI.FailureRequest -> {
+                    isResultLoading.postValue(false)
                     messageErrorRequest.postValue(resultAPI.messageError.toString())
-                    Log.d("ERROR", resultAPI.messageError.toString())
                 }
             }
         }.launchIn(viewModelScope)
     }
 
 
-    fun favoriteGistItem(gistItem: GistsListDTOItem){
+    fun favoriteGistItem(gistItem: GistsListDTOItem) {
         try {
-            val gistItems = gistItem.owner?.login?.let { GistVODB(it, gistItem.id, gistItem.createdAt) }
+            val gistItems =
+                gistItem.owner?.login?.let { GistVODB(it, gistItem.id, gistItem.createdAt) }
             databaseFirebase.child(gistItem.id).setValue(gistItems)
-        }catch (exception: Exception){
+        } catch (exception: Exception) {
             exception.printStackTrace()
             messageErrorRequest.postValue(exception.message.toString())
         }

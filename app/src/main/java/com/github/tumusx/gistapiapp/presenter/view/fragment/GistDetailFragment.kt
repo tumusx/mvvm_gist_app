@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.github.tumusx.gistapiapp.R
 import com.github.tumusx.gistapiapp.data.model.detailGist.DetailGistDTO
 import com.github.tumusx.gistapiapp.databinding.FragmentDetailGistsBinding
 import com.github.tumusx.gistapiapp.presenter.view.OpenFileActivity
@@ -21,7 +22,12 @@ import dagger.hilt.android.AndroidEntryPoint
 class GistDetailFragment(private val idUserGist: String?) : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentDetailGistsBinding
     private lateinit var detailGistViewModel: GistDetailViewModel
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentDetailGistsBinding.inflate(layoutInflater)
         detailGistViewModel = ViewModelProvider(this)[GistDetailViewModel::class.java]
         BottomSheetBehavior.PEEK_HEIGHT_AUTO
@@ -30,22 +36,35 @@ class GistDetailFragment(private val idUserGist: String?) : BottomSheetDialogFra
         return binding.root
     }
 
-
     private fun searchDetailGist() {
         if (idUserGist != null)
             detailGistViewModel.getDetailGists(idUserGist)
-
         else
-            Snackbar.make(binding.clContainerItemsDate, "Não é possível encontrar o detalhe deste gist!", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(
+                binding.clContainerItemsDate,
+                R.string.not_found_id,
+                Snackbar.LENGTH_SHORT
+            ).show()
     }
 
 
     private fun configObservable() {
         detailGistViewModel.detailGist.observe(viewLifecycleOwner, this::getDetailGistUser)
         detailGistViewModel.messageError.observe(viewLifecycleOwner, this::showMessageErrorRequest)
+        detailGistViewModel.isResultLoading.observe(viewLifecycleOwner, this::configProgressBar)
     }
 
-    private fun showMessageErrorRequest(messageError: String){
+    private fun configProgressBar(isResult: Boolean) {
+        if (isResult) {
+            binding.progressBar.visibility = View.VISIBLE
+            binding.llcontainer.visibility = View.GONE
+        } else {
+            binding.progressBar.visibility = View.GONE
+            binding.llcontainer.visibility = View.VISIBLE
+        }
+    }
+
+    private fun showMessageErrorRequest(messageError: String) {
         Snackbar.make(binding.clContainerItemsDate, messageError, Snackbar.LENGTH_SHORT).show()
     }
 
@@ -61,9 +80,9 @@ class GistDetailFragment(private val idUserGist: String?) : BottomSheetDialogFra
         }
     }
 
-    private fun sendUrlForWebView(urlFiletoWebView: String){
+    private fun sendUrlForWebView(urlFileWebView: String) {
         val actionSend = Intent(requireContext(), OpenFileActivity::class.java)
-        actionSend.putExtra(ConstUtils.SEND_URL_WEBVIEW, urlFiletoWebView)
+        actionSend.putExtra(ConstUtils.SEND_URL_WEBVIEW, urlFileWebView)
         requireActivity().startActivity(actionSend)
     }
 }

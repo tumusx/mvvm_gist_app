@@ -2,7 +2,6 @@ package com.github.tumusx.gistapiapp.data.repository
 
 import com.github.tumusx.gistapiapp.data.model.detailGist.DetailGistDTO
 import com.github.tumusx.gistapiapp.data.remote.GistsService
-import com.github.tumusx.gistapiapp.data.model.detailGist.GistDetailDTO
 import com.github.tumusx.gistapiapp.data.model.listGist.GistsListDTOItem
 import com.github.tumusx.gistapiapp.domain.repository.GistRepository
 import javax.inject.Inject

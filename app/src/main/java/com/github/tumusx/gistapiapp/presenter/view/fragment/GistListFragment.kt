@@ -36,6 +36,15 @@ class GistListFragment : Fragment() {
     private fun configObservables() {
         gistsViewModel.getStats.observe(viewLifecycleOwner, this::configUpdateListAdapter)
         gistsViewModel.messageErrorRequest.observe(viewLifecycleOwner, this::showMessageError)
+        gistsViewModel.isResultLoading.observe(viewLifecycleOwner, this::configProgressBar)
+    }
+
+    private fun configProgressBar(isLoading: Boolean) {
+        if(isLoading){
+            binding.progressBar.visibility = View.VISIBLE
+        }else{
+            binding.progressBar.visibility = View.GONE
+        }
     }
 
     private fun showMessageError(messageError: String) {
@@ -49,6 +58,7 @@ class GistListFragment : Fragment() {
 
         binding.rvLastedGist.adapter = gistsListAdapter
     }
+
 
     private fun configEventClickAdapter(
         gistListAdapter: GistListAdapter,

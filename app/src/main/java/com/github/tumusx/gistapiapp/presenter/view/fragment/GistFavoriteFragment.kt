@@ -5,31 +5,34 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
+import androidx.lifecycle.ViewModelProvider
 import com.github.tumusx.gistapiapp.databinding.FragmentFavoriteItemBinding
+import com.github.tumusx.gistapiapp.presenter.view.adapter.GistFavoriteAdapter
+import com.github.tumusx.gistapiapp.presenter.view.adapter.TypeFavoriteGist
+import com.github.tumusx.gistapiapp.presenter.viewModel.GistFavoriteViewModel
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class GistFavoriteFragment : Fragment() {
     private lateinit var binding: FragmentFavoriteItemBinding
-    private lateinit var favoriteAdapter: RecyclerView.Adapter<*>
-    private lateinit var databaseFirebase: DatabaseReference
+    private val favoriteAdapter = GistFavoriteAdapter()
+    private lateinit var viewModel: GistFavoriteViewModel
     override fun onCreateView(
-
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentFavoriteItemBinding.inflate(layoutInflater)
+        viewModel = ViewModelProvider(this)[GistFavoriteViewModel::class.java]
+        viewModel.readFavoriteItem()
+        configUIAdapter()
         return binding.root
     }
 
-/*    private fun configUIAdapter(favoriteItemGist: List<String>) {
-        favoriteAdapter = GistFavoriteAdapter() {}
-        binding.rvLastedGist.adapter = favoriteAdapter as GistFavoriteAdapter
-        (favoriteAdapter as GistFavoriteAdapter).updateGistList(favoriteItemGist)
-    }*/
+    private fun configUIAdapter() {
+
+        binding.rvLastedGist.adapter = favoriteAdapter
+        favoriteAdapter.updateGistList(TypeFavoriteGist.getListMagalu())
+    }
 }
