@@ -19,7 +19,7 @@ import javax.inject.Inject
 class GistListViewModel @Inject constructor(
     private val listUseCase: GistListUseCaseImpl
 ) : ViewModel() {
-    val getStats = MutableLiveData<List<GistsListDTOItem>>()
+    val getStats = MutableLiveData<List<GistsListDTOItem>?>()
     val messageErrorRequest = MutableLiveData<String>()
     val isResultLoading = MutableLiveData<Boolean>()
     private var databaseFirebase: DatabaseReference = Firebase.database.reference.child("gists")
@@ -28,7 +28,7 @@ class GistListViewModel @Inject constructor(
         configGistList()
     }
 
-    private fun configGistList() {
+     fun configGistList() {
         isResultLoading.postValue(true)
         listUseCase.getListGist().onEach { resultAPI ->
             when (resultAPI) {
