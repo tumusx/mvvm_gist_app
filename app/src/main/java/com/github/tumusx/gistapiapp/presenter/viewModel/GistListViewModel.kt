@@ -7,9 +7,6 @@ import com.github.tumusx.gistapiapp.data.db.model.GistVODB
 import com.github.tumusx.gistapiapp.data.model.listGist.GistsListDTOItem
 import com.github.tumusx.gistapiapp.domain.useCase.GistListUseCaseImpl
 import com.github.tumusx.gistapiapp.utils.ResultAPI
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -22,7 +19,6 @@ class GistListViewModel @Inject constructor(
     val getStats = MutableLiveData<List<GistsListDTOItem>?>()
     val messageErrorRequest = MutableLiveData<String>()
     val isResultLoading = MutableLiveData<Boolean>()
-    private var databaseFirebase: DatabaseReference = Firebase.database.reference.child("gists")
 
     init {
         configGistList()
@@ -52,7 +48,6 @@ class GistListViewModel @Inject constructor(
         try {
             val gistItems =
                 gistItem.owner?.login?.let { GistVODB(it, gistItem.id, gistItem.createdAt) }
-            databaseFirebase.child(gistItem.id).setValue(gistItems)
         } catch (exception: Exception) {
             exception.printStackTrace()
             messageErrorRequest.postValue(exception.message.toString())

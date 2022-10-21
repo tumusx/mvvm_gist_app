@@ -10,7 +10,6 @@ import com.github.tumusx.gistapiapp.databinding.FragmentFavoriteItemBinding
 import com.github.tumusx.gistapiapp.presenter.view.adapter.GistFavoriteAdapter
 import com.github.tumusx.gistapiapp.presenter.view.adapter.TypeFavoriteGist
 import com.github.tumusx.gistapiapp.presenter.viewModel.GistFavoriteViewModel
-import com.google.firebase.database.DatabaseReference
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

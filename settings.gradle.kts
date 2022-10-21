@@ -13,4 +13,5 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "GistApiApp"
-include ':app'
+include (":app")
+include(":listGists")
